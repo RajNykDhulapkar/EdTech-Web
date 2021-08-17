@@ -120,7 +120,7 @@ def apiOverview(request):
         },
         "Gtimetable List": {
             "url": reverse('gtimetable-list', request=request),
-            "path": "/api/gtimetable-list/",
+            "path": "/api/gtimetable/",
             "name": "gtimetable-list",
             "fields": "id, url, link, subjects, colleges, branches, years",
             "filter_fields": "branches__branch_code, colleges__college_code, subjects_subject_code, years__year",
@@ -130,7 +130,7 @@ def apiOverview(request):
         },
         "Gtimetable Detail": {
             "url": reverse('gtimetable-detail', request=request, args=[10]),
-            "path": "/api/gtimetable-detail/10/",
+            "path": "/api/gtimetable/10/",
             "name": "gtimetable-detail",
             "fields": "id, url, link, subjects, colleges, branches, years",
             "method_allowed": "GET, PUT, DELETE",
@@ -281,7 +281,7 @@ class FacultyDetail(RetrieveAPIView):
 """ Gtimetable """
 
 
-class GtimetableList(ListAPIView):
+class GtimetableList(ListCreateAPIView):
     """
     List all Gtimetables [GET]
     """
@@ -295,7 +295,7 @@ class GtimetableList(ListAPIView):
                         'branch__branch_code', 'year__year']
 
 
-class GtimetableDetail(RetrieveAPIView):
+class GtimetableDetail(RetrieveUpdateDestroyAPIView):
     """
     Retrieve a Gtimetable of a year of a branch in a college [GET]
     """
