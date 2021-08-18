@@ -1,0 +1,19 @@
+@baseURL = http://localhost:8000
+@clientID = CevmS8nKfhGJMsOfLyrWsJ3kog5CG5JIvMp0A8GM
+@clientSecret = qwzOVAmFlTZDacRtqoGDs9HXwnChEAdMRe5GwhfRPhajNUkafJ71q7ioFS0ezpJMRhyB0zmmovhn8KfQvPbbAKS3UnrGvKYvPoCxD9Tilu9aRCDB8c4FGJPoGkZn67yS
+
+@username = developer
+@password = testing123
+
+### login
+
+POST {{ baseURL }}/auth/token/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "client_id" : "{{clientID}}",
+    "client_secret" : "{{clientSecret}}",
+    "grant_type" : "password",
+    "username" : "{{username}}",
+    "password" : "{{password}}"
+}

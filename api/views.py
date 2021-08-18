@@ -18,7 +18,7 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
-from rest_framework import status
+from rest_framework import status, permissions
 
 from django.contrib.auth.models import User
 from .models import *
@@ -46,7 +46,7 @@ def apiOverview(request):
     api_urls = {
         "College List": {
             "url": reverse('college-list', request=request),
-            "path": "/api/college-list/",
+            "path": "/api/college/",
             "name": "college-list",
             "fields": "college_code, url, branches, name, established, location, full_address, link_image, website_link, static_map_src, email, linkedin, instagram, facebook, twitter, youtube",
             "filter_fields": "college_code",
@@ -56,7 +56,7 @@ def apiOverview(request):
         },
         "College Detail": {
             "url": reverse('college-detail', request=request, args=["NITG"]),
-            "path": "/api/college-detail/NITG/",
+            "path": "/api/college/NITG/",
             "name": "college-detail",
             "fields": "college_code, branches, name, established, location, full_address, link_image, website_link, static_map_src, email, linkedin, instagram, facebook, twitter, youtube",
             "method_allowed": "GET, PUT, DELETE",
@@ -64,7 +64,7 @@ def apiOverview(request):
         },
         "Subject List": {
             "url": reverse('subject-list', request=request),
-            "path": "/api/subject-list/",
+            "path": "/api/subject/",
             "name": "subject-list",
             "fields": "id, url, portions, subject_code, name, colleges, branches, years",
             "filter_fields": "subject_code, colleges__college_code, branches__branch_code, years__year",
@@ -75,7 +75,7 @@ def apiOverview(request):
         },
         "Subject Detail": {
             "url": reverse('subject-detail', request=request, args=[450]),
-            "path": "/api/subject-detail/450/",
+            "path": "/api/subject/450/",
             "name": "subject-detail",
             "fields": "id, url, portions, subject_code, name, colleges, branches, years",
             "method_allowed": "GET, PUT, DELETE",
@@ -83,7 +83,7 @@ def apiOverview(request):
         },
         "Faculty List": {
             "url": reverse('faculty-list', request=request),
-            "path": "/api/faculty-list/",
+            "path": "/api/faculty/",
             "name": "faculty-list",
             "fields": "id, url, name, branch_name, designation, email, phone_number, is_teaching_staff, branch, college",
             "filter_fields": "branch__branch_code, college__college_code, is_teaching_staff",
@@ -93,7 +93,7 @@ def apiOverview(request):
         },
         "Faculty Detail": {
             "url": reverse('faculty-detail', request=request, args=[80]),
-            "path": "/api/faculty-detail/450/",
+            "path": "/api/faculty/450/",
             "name": "faculty-detail",
             "fields": "id, url, name, branch_name, designation, email, phone_number, is_teaching_staff, branch, college",
             "method_allowed": "GET, PUT, DELETE",
@@ -101,7 +101,7 @@ def apiOverview(request):
         },
         "Portion List": {
             "url": reverse('portion-list', request=request),
-            "path": "/api/portion-list/",
+            "path": "/api/portion/",
             "name": "portion-list",
             "fields": "id, url, link, subjects, colleges, branches, years",
             "filter_fields": "branches__branch_code, colleges__college_code, subjects_subject_code, years__year",
@@ -112,7 +112,7 @@ def apiOverview(request):
         },
         "Portion Detail": {
             "url": reverse('portion-detail', request=request, args=[200]),
-            "path": "/api/portion-detail/450/",
+            "path": "/api/portion/450/",
             "name": "portion-detail",
             "fields": "id, url, link, subjects, colleges, branches, years",
             "method_allowed": "GET, PUT, DELETE",
@@ -138,7 +138,7 @@ def apiOverview(request):
         },
         "Contributor List": {
             "url": reverse('contributor-list', request=request),
-            "path": "/api/contributor-list/",
+            "path": "/api/contributor/",
             "name": "contributor-list",
             "fields": "url, name, slug, instagram, twitter, linkedin",
             "search_fields": "name",
@@ -147,7 +147,7 @@ def apiOverview(request):
         },
         "Contributor Detail": {
             "url": reverse('contributor-detail', request=request, args=['raj-dhulapkar']),
-            "path": "/api/contributor-detail/raj-dhulapkar/",
+            "path": "/api/contributor/raj-dhulapkar/",
             "name": "contributor-detail",
             "fields": "url, name, slug, instagram, twitter, linkedin",
             "method_allowed": "GET, PUT, DELETE",
@@ -289,6 +289,7 @@ class GtimetableList(ListCreateAPIView):
     queryset = Gtimetable.objects.all()
     serializer_class = GtimetableSerializer
     pagination_class = ResultsSetPagination
+    permission_classes = [permissions.IsAuthenticated, ]
 
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['college__college_code',

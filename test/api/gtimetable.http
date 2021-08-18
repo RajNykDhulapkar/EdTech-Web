@@ -1,0 +1,6 @@
+@baseURL = http://localhost:8000
+@access_token = SfqI2ChaRtyMEegALDCQbZx5i3YdnR
+
+GET {{ baseURL }}/api/gtimetable/ HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
