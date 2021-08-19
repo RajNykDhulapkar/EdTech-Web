@@ -1,0 +1,9 @@
+
+POST http://127.0.0.1:8000/api/user/create/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "email":"user_3@edtech.com",
+    "username": "user_3",
+    "password": "testing123"
+}

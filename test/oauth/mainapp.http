@@ -1,8 +1,8 @@
 @baseURL = http://localhost:8000
-@clientID = CevmS8nKfhGJMsOfLyrWsJ3kog5CG5JIvMp0A8GM
-@clientSecret = qwzOVAmFlTZDacRtqoGDs9HXwnChEAdMRe5GwhfRPhajNUkafJ71q7ioFS0ezpJMRhyB0zmmovhn8KfQvPbbAKS3UnrGvKYvPoCxD9Tilu9aRCDB8c4FGJPoGkZn67yS
+@clientID = ztpQkgdxtKED6b6AGqRHHORbUoWmHp8wPP4cK4HZ
+@clientSecret = CwPJOx8ekak5N3lfLZ3plrUIREkSAeQYm2uQhYsJVUpYF5MMVo5X7sHNE2rbFGKBvmvouEwHr8BomtCkVNNlUKv3CgrFdnjdO33vhEQrZOfRmJHGTyDaLoXNgaHz7jU8
 
-@username = developer
+@username = developer@edtech.com
 @password = testing123
 
 ### login

@@ -10,18 +10,27 @@ def list_objects(modelClass):
     for item in modelClass.objects.all():
         print(item)
 
-def populate_colleges(CollegeClass, jsonFilePath='./util/json/colleges.json'):
-    """./util/json/colleges.json"""
-    json_data = open(jsonFilePath, 'r')
-    dict_data = json.load(json_data)
 
-    for college in dict_data:
-        col = CollegeClass(**college)
-        col.save()
+def populate_colleges(CollegeClass, csvFilePath='./util/csv/colleges.csv'):
+    """./util/json/colleges.json
+        command: populate_colleges(College)
+
+    """
+    csv_data = open(csvFilePath, 'r')
+    fieldnames = ["college_code","name","established","location","full_address","link_image","website_link","static_map_src","email","linkedin","instagram","facebook","twitter","youtube"]
+    csv_reader = csv.DictReader(csv_data, fieldnames=fieldnames)
+
+    for college_dict in list(csv_reader)[1:]:
+        college = CollegeClass(**college_dict)
+        college.save()
+
 
 
 def populate_branch(BranchClass, College, jsonFilePath='./util/branches_data.json'):
-    """./util/branches_data.json"""
+    """./util/branches_data.json
+        command:
+            populate_branch(Branch, College)
+    """
     json_data = open(jsonFilePath, 'r')
     dict_data = json.load(json_data)
 
@@ -71,7 +80,10 @@ else:
 def populate_subjects(SubjectClass, CollegeClass, BranchClass, YearClass, jsonFilePath='./util/json/subjects/merged_subjects.json'):
     """./util/json/subjects/merged_subjects.json"""
     """json files dir: 
-         ./util/json/subjects     
+         ./util/json/subjects 
+         command: 
+         populate_subjects(Subject, College, Branch, Year)
+
     """
     current_dir = os.getcwd()
     os.chdir('./util/json/subjects')
@@ -163,7 +175,8 @@ def populate_gtimetable(GtimetableClass, CollegeClass, BranchClass, YearClass, j
 
 def populate_contributors(ContributorClass, jsonFilePath='./util/json/contributors.json'):
     """
-        command:populate_contributors(Contributor)
+        command:
+        populate_contributors(Contributor)
 
     """
     json_data = open(jsonFilePath, 'r')
@@ -278,12 +291,15 @@ def populate_faculty(FacultyClass, BranchClass, CollegeClass, jsonFilePath='./ut
 #         col.save()
 
 
-def populate_portion_list_for_nitgoa(Portion, Subject, College):
-    for sub in Subject.objects.all():
-        portion = Portion(
-            subject=sub,
-            college=College.objects.get(college_code='NITG'),
-            link="https://drive.google.com/file/d/1MewBpDc6Y5_9-ZluGARQG04T75xhVjzV/view"
-        )
-        portion.save()
+# def populate_portion_list_for_nitgoa(Portion, Subject, College):
+#     for sub in Subject.objects.all():
+#         portion = Portion(
+#             subject=sub,
+#             college=College.objects.get(college_code='NITG'),
+#             link="https://drive.google.com/file/d/1MewBpDc6Y5_9-ZluGARQG04T75xhVjzV/view"
+#         )
+#         portion.save()
 
+
+# def commands():
+#     print("populate_colleges(College)")

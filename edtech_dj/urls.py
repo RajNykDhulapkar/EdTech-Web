@@ -34,6 +34,8 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     url(r'^nested_admin/', include('nested_admin.urls')),
 
+    # User Management
+    path('api/user/', include('users.urls', namespace='users')),
     # oath
     path('auth/', include('drf_social_oauth2.urls', namespace='drf')),
 
