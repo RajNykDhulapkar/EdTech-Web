@@ -40,6 +40,7 @@ class ContributorDetail(RetrieveAPIView):
 # views for textbooks
 class TextbookList(ListAPIView):
     pagination_class = ResultsSetPagination
+    serializer_class = TextbookSerializer
 
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, ]
     filterset_fields = ['colleges__college_code', 'branches__branch_code',

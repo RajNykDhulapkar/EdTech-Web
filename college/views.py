@@ -3,6 +3,8 @@ from django.http.response import Http404
 from rest_framework.generics import (ListAPIView,
                                      RetrieveAPIView)
 from rest_framework.response import Response
+from drf_yasg.utils import swagger_auto_schema
+
 
 # import models
 from college.models import *
@@ -42,6 +44,7 @@ class CollegeDetail(RetrieveAPIView):
     """
     Retrieve [GET], update [PUT] or delete [DELETE] a Subject instance.
     """
+
     queryset = College.objects.all()
     serializer_class = CollegeSerializer
     lookup_field = 'college_code'
@@ -189,6 +192,7 @@ class FacultyDetail(RetrieveAPIView):
 
 # Gtimetable veiw
 class GtimetableDetail(RetrieveAPIView):
+    serializer_class = GtimetableSerializer
 
     def get_object(self, request):
         gtimetable = Gtimetable.objects.filter(

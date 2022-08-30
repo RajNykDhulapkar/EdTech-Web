@@ -6,8 +6,6 @@ import datetime
 
 
 class College(models.Model):
-    """ Model for all the Colleges """
-
     college_code = models.CharField(
         max_length=12, unique=True, primary_key=True)
     name = models.CharField(max_length=180)
